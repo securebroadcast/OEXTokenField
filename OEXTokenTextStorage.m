@@ -51,8 +51,8 @@
 {
     [_string setAttributes:attrs range:range];
     NSTextAttachment *attachment = attrs[NSAttachmentAttributeName];
-    if ( attachment && [_delegate respondsToSelector:@selector(tokenTextStorage:updateTokenAttachment:forRange:)] )
-        [_delegate tokenTextStorage:self updateTokenAttachment:attachment forRange:range];
+    if ( attachment && [self.delegate respondsToSelector:@selector(tokenTextStorage:updateTokenAttachment:forRange:)] )
+        [self.delegate tokenTextStorage:self updateTokenAttachment:attachment forRange:range];
     [self edited:NSTextStorageEditedAttributes range:range changeInLength:0];
 }
 
@@ -70,8 +70,8 @@
     NSRange strRange = NSMakeRange(range.location, attrString.length);
     
     [_string enumerateAttribute:NSAttachmentAttributeName inRange:strRange options:0 usingBlock:^(NSTextAttachment *attachment, NSRange range, BOOL *stop) {
-        if ( attachment && [_delegate respondsToSelector:@selector(tokenTextStorage:updateTokenAttachment:forRange:)] ) {
-            [_delegate tokenTextStorage:self updateTokenAttachment:attachment forRange:range];
+        if ( attachment && [self.delegate respondsToSelector:@selector(tokenTextStorage:updateTokenAttachment:forRange:)] ) {
+            [self.delegate tokenTextStorage:self updateTokenAttachment:attachment forRange:range];
         }
     }];
     [self edited:NSTextStorageEditedAttributes | NSTextStorageEditedCharacters range:range changeInLength:strRange.length - range.length];
